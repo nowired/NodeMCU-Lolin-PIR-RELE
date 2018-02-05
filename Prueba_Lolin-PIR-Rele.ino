@@ -8,11 +8,11 @@
 
 // Definimos las variables a utilizar  
 // Pin donde se encuentra conectado el Rele
-#define PIN_RELE D4 //2 //D0;
+#define PIN_RELE 10
 // Pin donde se encuentra conectado el sensor PIR
-#define PIN_PIR D1 //4 //D1;
+#define PIN_PIR 4
 // Habilitamos/Deshabilitamos el control a través de MQTT
-#define SERVER_MQTT true
+#define SERVER_MQTT false
 // Habilitamos/Deshabilitamos el sensor PIR para activar automáticamente el rele
 #define PIR_ACTIVATED false
 // Definimos el tiempo a esperar para apagar el rele tras detectar movimiento
@@ -22,7 +22,6 @@ const char* ssid = "WiFi";
 // Contraseña de la red wifi a la que nos conectamos
 const char* pwd = "Password";
 
-const char* buffer = "";
 // Especificamos el puerto por defecto en el que escuchará el servidor web
 ESP8266WebServer server(80); 
 // comenzamos con el código
@@ -88,7 +87,6 @@ void handleRoot()
 {
   const char* htmlText = "";
   //Handler for the rooth path 
-  
   if (digitalRead(PIN_RELE) == LOW) {
     htmlText = "<!DOCTYPE html><html><head><title>NodeMCU Lolin Domology.es - Control Rele desde sensor PIR</title><meta charset='utf-8' /><meta content='Carlos Gonzalez' name='author' /><meta content='Control de rele a traves de un sensor PIR' name='description' /><style>a {text-decoration: none; color: #ffffff} .button { display: inline-block; border-radius: 4px; background-color: #f4511e; border: none; color: #FFFFFF; text-align: center; font-size: 28px; padding: 20px; width: 75%; transition: all 0.5s; cursor: pointer; margin: 5px; } .button a { cursor: pointer; display: inline-block; position: relative; transition: 0.5s; } .button a:after { content: '\\00bb'; position: absolute; opacity: 0;top: 0;right: -20px;transition: 0.5s; } .button:hover a { padding-right: 25px; } .button:hover a:after { opacity: 1; right: 0; }</style></head><body><div class='button' style='vertical-align:middle'><a href='/toggle'>Activar</a></div></body></html>";
   }
@@ -112,7 +110,6 @@ void activarRele()
   Serial.print("Activa Relé orden: ");
   digitalWrite(PIN_RELE, HIGH);
   Serial.println("HIGH");
-  delay(250);
   handleRoot();
 }
 void desactivarRele()
@@ -120,7 +117,6 @@ void desactivarRele()
   Serial.print("Desactiva Relé orden: ");
   digitalWrite(PIN_RELE, LOW);
   Serial.println("LOW");
-  delay(250);
   handleRoot();
 }
 
