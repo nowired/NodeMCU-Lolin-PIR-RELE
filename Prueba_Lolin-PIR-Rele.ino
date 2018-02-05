@@ -22,7 +22,7 @@ long tiempo_transcurrido;
 const char* ssid = "WiFi";
 // Contraseña de la red wifi a la que nos conectamos
 const char* pwd = "Password";
-
+char* buffer;
 // Especificamos el puerto por defecto en el que escuchará el servidor web
 ESP8266WebServer server(80); 
 // comenzamos con el código
